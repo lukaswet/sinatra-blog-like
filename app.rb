@@ -11,10 +11,17 @@ end
 
 before do
     init_db
-end    
+end 
+
+configure do
+    init_db
+    @db.execute 'CREATE TABLE IF NOT EXISTS "Posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "created_date" DATE, "content" TEXT)'
+end
 
 get '/' do
-	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
+    @results = @db.execute 'SELECT * FROM Posts ORDER BY id DESC'
+    
+	erb :index			
 end
 
 get '/new' do
@@ -24,5 +31,12 @@ end
 post '/new' do
   content = params[:content]
   
-  erb "You typed text: #{content}"
+  if content.length <= 0
+      @error = "Type text"
+      return erb :new
+  end
+  
+  @db.execute 'INSERT INTO Posts (content, created_date) VALUES (?, datetime())', [content]
+  
+  redirect to '/'
 end
