@@ -6,6 +6,8 @@
     <%= @row['content'] %>
     <br/>
     <br/>
+    Author: <%= @row['username'] %>
+    <br/>
     Added at: <%= @row['created_date'] %>
     
 </p>
@@ -13,8 +15,6 @@
 <br/>
 
 <h4>Comments:</h4>
-
-<br/>
 
 <% @comments.each do |comment| %>
     <p>

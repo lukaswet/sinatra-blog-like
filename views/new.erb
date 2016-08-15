@@ -3,7 +3,11 @@
     We will add new posts
 </p>
 <form action="/new" method="POST">
+    <label>Name:</label>
+    <input name="username" class="form-control" placeholder="Enter your name">
+    <br/>
+    <label>Your text</label>
     <textarea name="content" class="form-control" rows="3"></textarea>
     <br/>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" placeholder="Type text here">Submit</button>
 </form>
